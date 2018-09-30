@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item style="vertical-align: center">
+      <ion-avatar slot="start">
+        <img src="../../assets/icon/{{team1Details.icon}}">
+      </ion-avatar>
+      <ion-label text-center>{{team1Details.shortName}} Vs {{team2Details.shortName}}</ion-label>
+      <ion-avatar slot="end">
+        <img src="../../assets/icon/{{team2Details.icon}}">
+      </ion-avatar>
+    </ion-item>
+  </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" mode="md" [(ngModel)]="selectedSegment">
+      <ion-segment-button value="overview">
+        Overview
+      </ion-segment-button>
+      <ion-segment-button value="lineups">
+        LineUps
+      </ion-segment-button>
+      <ion-segment-button value="keyevents">
+        Key Events
+      </ion-segment-button>
+      <ion-segment-button value="stats">
+        Stats
+      </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  <app-overview [teamOne]="team1Details" [teamTwo]="team2Details" [headToHeadStats]="headToHeadStats"
+    [eventDetails]="eventDetails" (teamSelected)="navToTeamDetailsPage($event)"
+    *ngIf="selectedSegment === 'overview'"></app-overview>
+  <app-stats *ngIf="selectedSegment === 'stats'"></app-stats>
+  <app-lineups *ngIf="selectedSegment === 'lineups'" [teamList]="participants"></app-lineups>
+  <app-key-events *ngIf="selectedSegment === 'keyevents'"></app-key-events>
+</ion-content>

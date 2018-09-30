@@ -1,0 +1,97 @@
+<ion-header [ngStyle]="{'background-color': choosenTeam.color}" class="header-style">
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item>
+      <ion-thumbnail>
+        <img src="../../assets/icon/{{choosenTeam.icon}}" />
+      </ion-thumbnail>
+      <h4 style="color: white">{{choosenTeam.teamName}}</h4>
+    </ion-item>
+    <ion-buttons slot="end">
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" mode="md" color="light" [(ngModel)]="selectedSegment">
+      <ion-segment-button value="profile" style="color: white">
+        Club Profile
+      </ion-segment-button>
+      <ion-segment-button value="squad" style="color: white">
+        Squad
+      </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  
+  <ng-container *ngIf="!showSquad">
+    
+    <ion-card *ngIf="choosenTeam.fanClub !== ''">
+        <ion-card-content>
+          <ion-card-subtitle>FanBase</ion-card-subtitle>
+          <p>{{choosenTeam.fanClub}}</p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="choosenTeam.rivals !== ''">
+        <ion-card-content>
+          <ion-card-subtitle>Rivals</ion-card-subtitle>
+          <p>{{choosenTeam.rivals}}</p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="choosenTeam.highlights">
+        <ion-card-content>
+          <ion-card-subtitle>Champions</ion-card-subtitle>
+          <p>{{choosenTeam.highlights}}</p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="choosenTeam.headCoach !== ''">
+        <ion-card-content>
+          <ion-card-subtitle>Head Coach</ion-card-subtitle>
+          <p>{{choosenTeam.headCoach}}</p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+          <ion-card-subtitle>General Facts
+            <ion-icon name="information-circle"></ion-icon>
+          </ion-card-subtitle>
+          <p>{{choosenTeam.profile}}</p>
+        </ion-card-content>
+      </ion-card>
+  </ng-container>
+  <ng-container *ngIf="showSquad">
+    <ion-list>
+      <ion-list-header mode="md" color="light">
+        <ion-label>GoalKeepers</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let player of goalKeepersArray">
+        <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+        <ion-label>{{player.full_name}}</ion-label>
+      </ion-item>
+      <ion-list-header mode="md" color="light">
+        <ion-label>Defenders</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let player of defendersArray">
+          <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+          <ion-label>{{player.full_name}}</ion-label>
+      </ion-item>
+      <ion-list-header mode="md" color="light">
+        <ion-label>MidFielders</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let player of midFieldersArray">
+          <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+          <ion-label>{{player.full_name}}</ion-label>
+      </ion-item>
+      <ion-list-header mode="md" color="light">
+        <ion-label>Forwards</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let player of forwardsArray">
+          <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+          <ion-label>{{player.full_name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>

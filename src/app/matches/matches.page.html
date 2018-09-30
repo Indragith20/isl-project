@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Matches</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-button color="dark" fill="outline" (click)="goToToday()">Today</ion-button>
+
+      <ion-button (click)="goToPreviousDate()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ng-container (click)="showDatePicker()">
+        <ion-label style="padding-left: 10px;" (click)="showDatePicker()">{{selectedDate | date: 'EEE MMM d' }}</ion-label>
+      </ng-container>
+      <!-- <ion-datetime displayFormat="MMM/DD/YYYY" [(ngModel)]="today" (change)="selectDate()"></ion-datetime> -->
+      <ion-button (click)="goToNextDate()">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+  <ng-container *ngIf="showWarningCard">
+      <ion-card>
+          <ion-row>
+            <ion-col></ion-col>
+            <ion-col style="display: flex;justify-content: center;align-items: center">
+              <ion-thumbnail>
+                <img src="../../assets/icon/myInfo.png" />
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+      
+          <ion-card-content>
+            <ion-card-title text-center>No Matches Found</ion-card-title>
+      
+            <p text-center>Please Select Different Date</p>
+          </ion-card-content>
+        </ion-card>
+  </ng-container>
+  
+  
+  <ng-container *ngIf="!showWarningCard">
+    <ion-card *ngFor="let matchDetails of matchDetailsArray" (click)="goToMatchDetails(matchDetails)">
+      <ion-card-content padding>
+        <p text-center style="border-bottom: 1px solid lightgray">{{matchDetails.matchId}}</p>
+        <ion-card-title text-center style="border-bottom: 1px solid lightgray;font-size: medium;padding:2%">
+          <ion-item detail>
+            <h3>
+              <b>{{matchDetails.team1.teamDetails.teamName}}</b>
+              Vs
+              <b>{{matchDetails.team2.teamDetails.teamName}}</b>
+            </h3>
+          </ion-item>
+          <p text-center style="font-size:small;padding-top: 2%">{{matchDetails.stadium}}</p>
+        </ion-card-title>
+        <ion-row>
+            <ion-col text-start>{{matchDetails.date}}</ion-col>
+            <ion-col text-end>{{matchDetails.time}}</ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+</ion-content>

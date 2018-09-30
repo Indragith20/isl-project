@@ -1,0 +1,76 @@
+<ion-list>
+    <ion-item-divider>
+        <b>Predictor</b>
+      </ion-item-divider>
+      <ion-card>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <p><b>who will win ?</b></p>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-label>{{teamOne.shortName}} </ion-label>
+                    <ion-checkbox color="light"></ion-checkbox>     
+                </ion-col>
+                <ion-col></ion-col>
+                <ion-col>
+                    <ion-label>{{teamTwo.shortName}} </ion-label>
+                    <ion-checkbox color="light"></ion-checkbox>     
+                </ion-col>
+              </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+  <ion-item-divider>
+    <b>Teams</b>
+  </ion-item-divider>
+  <ion-item detail (click)="navigateToTeamDetails(teamOne)">
+    {{teamOne.teamName}}
+  </ion-item>
+  <ion-item detail (click)="navigateToTeamDetails(teamTwo)">
+    {{teamTwo.teamName}}
+  </ion-item>
+  <ion-item-divider>
+    <b>General Info</b>
+  </ion-item-divider>
+  <ion-item>
+    <ion-row>
+      <ion-col size="3">
+        <b>Stadium:</b>
+      </ion-col>
+      <ion-col size="9" style="font-size: 14px">
+        {{eventDetails.stadium}}
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  <ion-item>
+    <ion-col size="3">
+      <b>Day:</b>
+    </ion-col>
+    <ion-col size="9" style="font-size: 14px">
+      {{eventDetails.date}} {{eventDetails.time}}
+    </ion-col>
+
+  </ion-item>
+  <ion-item-divider>
+    <b>Head To Head Stats</b>
+  </ion-item-divider>
+  <ion-grid class="gridStyle" style="font-size: 14px;">
+    <ion-row style="border: 1px solid lightgrey">
+      <ion-col text-center><b>Played</b></ion-col>
+      <ion-col text-center><b>{{teamOne.shortName}} Wins</b></ion-col>
+      <ion-col text-center><b>{{teamTwo.shortName}} Wins</b></ion-col>
+      <ion-col text-center><b>{{teamOne.shortName}} Goals</b></ion-col>
+      <ion-col text-center><b>{{teamTwo.shortName}} Goals</b></ion-col>
+    </ion-row>
+    <ion-row *ngIf="headToHeadStats" style="border: 1px solid lightgrey">
+      <ion-col text-center>{{headToHeadStats.matchesPlayed}}</ion-col>
+      <ion-col text-center>{{headToHeadStats[teamOne.shortName].wins}} </ion-col>
+      <ion-col text-center>{{headToHeadStats[teamTwo.shortName].wins}} </ion-col>
+      <ion-col text-center>{{headToHeadStats[teamOne.shortName].goalsScored}} </ion-col>
+      <ion-col text-center>{{headToHeadStats[teamTwo.shortName].goalsScored}} </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-list>

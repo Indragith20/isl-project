@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Teams</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngFor="let team of teams" (click)="getTeamDetails(team)">
+      <ion-item-divider>
+        <ion-thumbnail slot="start">
+            <img src="../../assets/icon/{{team.icon}}">
+        </ion-thumbnail>
+        <ion-label>
+          {{team.teamName}}
+        </ion-label>
+        <ion-buttons slot="end">
+            <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+          </ion-buttons>
+      </ion-item-divider>
+    </ion-list>
+
+</ion-content>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="showTeamList">
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ng-container *ngFor="let teams of teamsList">
+        <ion-segment-button value="{{teams.id}}" checked>
+          {{teams.name}}
+        </ion-segment-button>
+    </ng-container>
+  </ion-segment>
+  <app-player-list [playerList]="playerList"></app-player-list>
+</ng-container>
+<ng-container *ngIf="!showTeamList" class="text-center">
+  <div class="custom-container">
+    <h4>LineUps Not Announced Yet</h4>
+  </div>
+</ng-container>

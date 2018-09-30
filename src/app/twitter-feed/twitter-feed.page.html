@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Twitter</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" (click)="presentActionSheet()"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<ion-refresher (ionRefresh)="loadTimeline($event)">
+    <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+
+  <ion-card *ngFor="let tweet of tweets">
+
+
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="{{tweet.user.profile_image_url}}">
+      </ion-avatar>
+      <h5>{{tweet.user.name}}</h5>
+      <!-- <p>{{tweet.cre}}</p> -->
+    </ion-item>
+
+    <ion-card-content>
+      <p>{{tweet.text}}</p>
+    </ion-card-content>
+
+
+    <!-- <ion-row>
+      <ion-col *ngIf="tweet.entities.urls.length > 0">
+        <button ion-button clear small (click)="openLinkUrl(tweet.entities.urls[0].url)">
+          <ion-icon name="open"></ion-icon>
+          <div>Open Link</div>
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+
+  </ion-card>
+
+</ion-content>

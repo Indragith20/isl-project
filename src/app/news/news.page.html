@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngFor="let newsDetails of news">
+    <ion-card-content>
+      <ion-card-subtitle>{{newsDetails.team_name}}</ion-card-subtitle>
+      <ion-grid style="border-top: 1px solid lightgrey">
+        <ion-row (click)="openNews(newsDetails.source_link)">
+          <ion-col col-1>
+            <img src="{{newsDetails.image_url}}" height="auto">
+          </ion-col>
+          <ion-col col-11>{{newsDetails.title}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more news...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
