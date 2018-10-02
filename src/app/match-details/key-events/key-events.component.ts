@@ -6,7 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./key-events.component.scss']
 })
 export class KeyEventsComponent implements OnInit {
-
+  items = [
+    {
+      title: 'Goal',
+      content: 'Goal Scored: Ronaldo Assist by: Ozil',
+      icon: 'football',
+      time: {title: '12'}
+    },
+    {
+      title: 'Goal',
+      content: 'Goal Scored: Ronaldo Assist by: Ozil',
+      icon: 'football',
+      time: {title: '12'}
+    },
+    {
+      title: 'Goal',
+      content: 'Goal Scored: Ronaldo Assist by: Ozil',
+      icon: 'football',
+      time: {title: '12'}
+    }
+  ];
   constructor() { }
 
   ngOnInit() {

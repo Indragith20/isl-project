@@ -11,6 +11,7 @@ import { KeyEventsComponent } from './key-events/key-events.component';
 import { StatsComponent } from './stats/stats.component';
 import { LineupsComponent } from './lineups/lineups.component';
 import { PlayerListComponent } from './lineups/player-list/player-list.component';
+import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from './key-events/timeline/timeline';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [MatchDetailsPage, OverviewComponent, KeyEventsComponent,
-     StatsComponent, LineupsComponent, PlayerListComponent]
+     StatsComponent, LineupsComponent, PlayerListComponent, TimelineComponent,
+    TimelineItemComponent, TimelineTimeComponent]
 })
 export class MatchDetailsPageModule {}
