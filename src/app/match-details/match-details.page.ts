@@ -16,6 +16,7 @@ export class MatchDetailsPage implements OnInit {
   selectedSegment: string;
   headToHeadStats: any;
   participants: any;
+  statsData: any;
 
   constructor(private matchService: AppService, private router: Router, private _location: Location) { 
     this.selectedSegment = 'overview';
@@ -29,6 +30,7 @@ export class MatchDetailsPage implements OnInit {
       this.team2Details = this.selectedMatch.team2.teamDetails;
       this.eventDetails = this.selectedMatch;
       this.participants = this.selectedMatch.participants;
+      this.statsData = this.selectedMatch.post_stats;
       this.getDetailedStats();
     } else {
       this.router.navigate(['/tabs/matches']);

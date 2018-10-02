@@ -1,3 +1,21 @@
-<p>
-  stats works!
-</p>
+<ng-container  *ngIf="!showWarning">
+<ion-grid>
+  <ion-row class="grid-style">
+    <ion-col size="4" text-center>
+      <h4>{{teamOneName}}</h4></ion-col>
+    <ion-col size="4"></ion-col>
+    <ion-col size="4" text-center>
+      <h4>{{teamTwoName}}</h4></ion-col>
+  </ion-row>
+  <ion-row class="grid-style" *ngFor="let stats of matchStatsData">
+    <ion-col size="4" text-center>{{stats?.teamOne}}</ion-col>
+    <ion-col size="4" text-center><b>{{stats?.stats}}</b></ion-col>
+    <ion-col size="4" text-center>{{stats?.teamTwo}}</ion-col>
+  </ion-row>
+</ion-grid>
+</ng-container>
+<ng-container *ngIf="showWarning" class="text-center">
+  <div class="custom-container">
+    <h5>Stats Will be Available After Match has been ended</h5>
+  </div>
+</ng-container>

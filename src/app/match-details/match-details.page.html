@@ -35,7 +35,8 @@
   <app-overview [teamOne]="team1Details" [teamTwo]="team2Details" [headToHeadStats]="headToHeadStats"
     [eventDetails]="eventDetails" (teamSelected)="navToTeamDetailsPage($event)"
     *ngIf="selectedSegment === 'overview'"></app-overview>
-  <app-stats *ngIf="selectedSegment === 'stats'"></app-stats>
+  <app-stats *ngIf="selectedSegment === 'stats'" [statsData]="statsData" [teamOneName]="team1Details.shortName" 
+    [teamTwoName]="team2Details.shortName"></app-stats>
   <app-lineups *ngIf="selectedSegment === 'lineups'" [teamList]="participants"></app-lineups>
   <app-key-events *ngIf="selectedSegment === 'keyevents'"></app-key-events>
 </ion-content>
