@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { NativeTransitionOptions, NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-match-details',
@@ -18,7 +19,8 @@ export class MatchDetailsPage implements OnInit {
   participants: any;
   statsData: any;
 
-  constructor(private matchService: AppService, private router: Router, private _location: Location) { 
+  constructor(private matchService: AppService, private router: Router, 
+      private _location: Location, private nativePageTransitions: NativePageTransitions) { 
     this.selectedSegment = 'overview';
   }
 
@@ -60,4 +62,20 @@ export class MatchDetailsPage implements OnInit {
     this._location.back();
   }
 
+  ionViewWillLeave() {
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 250,
+      slowdownfactor: -1,
+      slidePixels: 0,
+      iosdelay: 20,
+      androiddelay: 0,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 48
+     }
+  
+   this.nativePageTransitions.slide(options);
+  }
+  
 }
+

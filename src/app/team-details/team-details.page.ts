@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppService } from '../services/app.service';
 import {Location} from '@angular/common';
+import { NativeTransitionOptions, NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-team-details',
@@ -19,7 +20,8 @@ export class TeamDetailsPage implements OnInit {
   forwardsArray: any[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router, 
-              private teamService: AppService, private _location: Location) {}
+              private teamService: AppService, private _location: Location,
+              private nativePageTransitions: NativePageTransitions) {}
 
   ngOnInit() {
     this.selectedSegment = 'profile';
@@ -74,6 +76,22 @@ export class TeamDetailsPage implements OnInit {
   goBack() {
     console.log(this._location);
     this._location.back();
+    this.applyTransition();
+  }
+
+  applyTransition() {
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 300,
+      slowdownfactor: 3,
+      slidePixels: 0,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+     }
+  
+   this.nativePageTransitions.slide(options);
   }
 
 }

@@ -3,6 +3,9 @@
 
 /** Ionic CSS Variables **/
 :root {
+  --ion-font-family: "Palatino", "Times New Roman", serif !important;
+
+  font-family: "Palatino", "Times New Roman", serif !important;
     /** primary **/
   --ion-color-primary: #253B80;
   --ion-color-primary-rgb: 18,41,111;

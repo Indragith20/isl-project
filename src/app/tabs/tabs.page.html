@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs (ionChange)="transition($event)">
   <ion-tab label="News" icon="paper" href="/tabs/(news:news)">
     <ion-router-outlet name="news"></ion-router-outlet>
   </ion-tab>

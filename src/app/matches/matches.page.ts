@@ -3,6 +3,7 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { AppService } from '../services/app.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { NativeTransitionOptions, NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-matches',
@@ -14,7 +15,7 @@ export class MatchesPage implements OnInit {
   showWarningCard: boolean = false;
   matchDetailsArray: any[] = [];
   constructor(private datePicker: DatePicker, private matchService: AppService,
-              private datePipe: DatePipe, private router: Router) { }
+              private datePipe: DatePipe, private router: Router, private nativePageTransitions: NativePageTransitions) { }
 
   ngOnInit() {
     this.selectedDate = new Date();
@@ -89,5 +90,21 @@ export class MatchesPage implements OnInit {
   goToMatchDetails(matchData) {
     this.matchService.setSelectedMatch(matchData);
     this.router.navigate(['/match-details']);
+    this.applyTransition();
+  }
+
+  applyTransition() {
+    let options: NativeTransitionOptions = {
+      direction: 'left',
+      duration: 300,
+      slowdownfactor: 3,
+      slidePixels: 0,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+     }
+  
+   this.nativePageTransitions.slide(options);
   }
 }
