@@ -1,15 +1,11 @@
-<timeline-main endIcon="call">
-    <timeline-item *ngFor="let item of items">
-      <!-- <timeline-time [time]="item.time"></timeline-time> -->
-      <ion-icon [name]="item.icon"></ion-icon>
-      <ion-card>
-        <ion-card-header>
-          {{item.title}}
-        </ion-card-header>
-        <ion-card-content>
-          {{item.content}}
-        </ion-card-content>
-      </ion-card>
-    </timeline-item>
-
-  </timeline-main>
+<ng-container>
+  <ion-grid>
+    <ion-row *ngFor="let timeline of matchTimeline" style="border-bottom: 1px solid lightgray">
+      <ion-col size="3">{{timeline.time}}</ion-col>
+      <ion-col size="9">
+        <b>{{timeline.eventName}}</b><br />
+        {{timeline.team}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>

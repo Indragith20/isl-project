@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, snapshotChanges } from 'angularfire2/database';
 import { LoaderService } from './loader.service';
 
 @Injectable()
@@ -189,5 +189,14 @@ export class AppService {
                 resolve(returnStats);
             }
         });
+    }
+
+    getTimelineEvents() {
+        /* const query = this.db.database.ref('matches/matches').orderByChild('game_id').equalTo(this.selectedMatch.game_id);
+        query.on('value', (snapshot) => {
+            console.log(snapshot.val());
+        }); */
+        //return this.db.database.ref('matches/matches').orderByChild('game_id').equalTo(this.selectedMatch.game_id);
+        return this.db.list('matches/matches', ref => ref.orderByChild('game_id').equalTo(this.selectedMatch.game_id)).valueChanges();
     }
 }

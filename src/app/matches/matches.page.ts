@@ -18,7 +18,9 @@ export class MatchesPage implements OnInit {
               private datePipe: DatePipe, private router: Router, private nativePageTransitions: NativePageTransitions) { }
 
   ngOnInit() {
-    this.selectedDate = new Date();
+    // TODO: Remove this hardcoded date
+    this.selectedDate = new Date("September 29, 2018");
+    console.log(this.selectedDate);
     this.getMatches();
   }
 
