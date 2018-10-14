@@ -1,10 +1,24 @@
 <ng-container>
   <ion-grid>
     <ion-row *ngFor="let timeline of matchTimeline" style="border-bottom: 1px solid lightgray">
-      <ion-col size="3">{{timeline.time}}</ion-col>
+      <ion-col size="3">
+          <ion-label>{{timeline.time}}'</ion-label>
+          <ng-container [ngSwitch]="timeline.eventName">
+            <ion-icon *ngSwitchCase="'Corner'" src="../../../assets/icon/corner.svg"></ion-icon>
+            <ion-icon *ngSwitchCase="'Match Started'" src="../../../assets/icon/029-whistle.svg"></ion-icon>
+            <ion-icon *ngSwitchCase="'Goal'" src="../../../assets/icon/010-football.svg"></ion-icon>
+            <ion-icon *ngSwitchCase="'Penalty'" src="../../../assets/icon/014-goal-box.svg"></ion-icon>
+          </ng-container>
+      </ion-col>
       <ion-col size="9">
-        <b>{{timeline.eventName}}</b><br />
-        {{timeline.team}}
+        <b>{{timeline.eventName}} - ({{timeline.score}})</b><br />
+        <ng-container *ngIf="timeline.showEvent === true">
+          <ion-label>{{timeline.team}}</ion-label>
+          <ng-container *ngIf="timeline.eventName === 'Goal'">
+            <ion-label>Goal:</ion-label>
+            <ion-label>{{timeline.playerName}}</ion-label>
+          </ng-container>
+        </ng-container>
       </ion-col>
     </ion-row>
   </ion-grid>

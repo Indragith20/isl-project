@@ -8,26 +8,8 @@ import { AppService } from '../../services/app.service';
 })
 export class KeyEventsComponent implements OnInit {
   matchTimeline: any[] = [];
-  items = [
-    {
-      title: 'Goal',
-      content: 'Goal Scored: Ronaldo Assist by: Ozil',
-      icon: 'football',
-      time: {title: '12'}
-    },
-    {
-      title: 'Goal',
-      content: 'Goal Scored: Ronaldo Assist by: Ozil',
-      icon: 'football',
-      time: {title: '12'}
-    },
-    {
-      title: 'Goal',
-      content: 'Goal Scored: Ronaldo Assist by: Ozil',
-      icon: 'football',
-      time: {title: '12'}
-    }
-  ];
+  showEvent: boolean = false;
+
   constructor(private appService: AppService) { }
 
   ngOnInit() {
@@ -40,11 +22,14 @@ export class KeyEventsComponent implements OnInit {
             Object.keys(timeline).map((timelineData) => {
               const modifiedTimeline = {
                 eventName: timeline[timelineData].eventName,
+                score: timeline[timelineData].scoreline,
                 time: timeline[timelineData].time,
+                showEvent: timeline[timelineData].eventName === 'Match Started' ? false : true,
                 team: timeline[timelineData].teamDetails.short_name,
-                playerName: timeline[timelineData].eventName === 'Goals' ? timeline[timelineData].playerDetails.playerName : null
+                playerName: timeline[timelineData].eventName === 'Goal' ? timeline[timelineData].playerDetails.playerName : null
               };
               this.matchTimeline.push(modifiedTimeline);
+              this.matchTimeline.reverse();
             });
           }
         })
