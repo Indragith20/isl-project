@@ -17,6 +17,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
 // import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +51,7 @@ import { NetworkServiceProvider } from './services/network.service';
     LoaderService,
     NetworkServiceProvider,
     FCM,
+    HeaderColor,
     //FirebaseMessaging,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

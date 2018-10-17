@@ -8,6 +8,7 @@ import { NetworkServiceProvider } from './services/network.service';
 import { Network } from '@ionic-native/network/ngx';
 import { Location } from '@angular/common';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
 //import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 
 @Component({
@@ -32,7 +33,8 @@ export class AppComponent {
     private network: Network,
     private alertCtrl: AlertController,
     private _location: Location,
-    private fcm: FCM
+    private fcm: FCM,
+    private headerColor: HeaderColor
   //  private firebaseMessaging: FirebaseMessaging
   ) {
     this.initializeApp();
@@ -42,8 +44,11 @@ export class AppComponent {
   initializeApp() {
     this.backButtonCount = 0;
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      //this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#99253B80');
+      //this.statusBar.styleLightContent();
       this.splashScreen.hide();
+      this.headerColor.tint('#253B80');
       if (this.network.type === 'none') {
         this.showAlert();
       }

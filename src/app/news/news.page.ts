@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { LoaderService } from '../services/loader.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
     selector: 'app-news',
@@ -10,7 +12,7 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/
 export class NewsPage implements OnInit {
     news: any[] = [];
 
-    constructor(private newsService: AppService, private iab: InAppBrowser) {
+    constructor(private newsService: AppService, private iab: InAppBrowser, public loadingController: LoadingController) {
     }
 
     ngOnInit() {
@@ -31,13 +33,34 @@ export class NewsPage implements OnInit {
             location: 'yes',
             hidenavigationbuttons:'yes',
             toolbarposition: 'bottom',
-            toolbarcolor: '#488aff',
+            toolbarcolor: '#253B80',
             navigationbuttoncolor: '#ffffff',
             hideurlbar: 'yes',
             closebuttoncaption: 'close',
-            hidespinner: 'no'
+            hidespinner: 'no',
+            hidden: 'yes'
         };
         const browser = this.iab.create(link,'_self', options);
+        this.loadingController.create({
+              message: 'Loading Full News...Please Wait',
+              showBackdrop: false,
+              translucent: true
+        }).then((loader) => {
+            loader.present();
+            browser.on('loadstop').subscribe((data) => {
+                browser.show();
+                loader.dismiss();
+            });
+            browser.on('loaderror').subscribe((event) => {
+                loader.dismiss();
+            });
+            browser.on('exit').subscribe((event) => {
+                loader.dismiss();
+            });
+            browser.on('loadstop').subscribe((event) => {
+                loader.dismiss();
+            });
+        });
     }
 
     doRefresh(event) {

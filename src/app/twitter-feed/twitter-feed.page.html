@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-<ion-refresher (ionRefresh)="loadTimeline($event)">
+  <ion-refresher (ionRefresh)="loadTimeline($event)">
     <ion-refresher-content></ion-refresher-content>
-</ion-refresher>
+  </ion-refresher>
 
 
   <ion-card *ngFor="let tweet of tweets">
