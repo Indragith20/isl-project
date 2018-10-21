@@ -22,6 +22,7 @@ export class AppComponent {
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
   backButtonCount: number;
+  alertBox: any;
 
   constructor(
     private platform: Platform,
@@ -37,7 +38,6 @@ export class AppComponent {
     private fcm: FCM,
     private headerColor: HeaderColor,
     private loaderService: LoaderService
-  //  private firebaseMessaging: FirebaseMessaging
   ) {
     this.initializeApp();
     this.backButtonStatus();
@@ -46,9 +46,7 @@ export class AppComponent {
   initializeApp() {
     this.backButtonCount = 0;
     this.platform.ready().then(() => {
-      //this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#99253B80');
-      //this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.headerColor.tint('#253B80');
       if (this.network.type === 'none') {
@@ -64,9 +62,6 @@ export class AppComponent {
     console.log('heelllo');
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected :-(');
-      this.loaderService.loadersList.map((loader) => {
-        loader.dismiss();
-      });
       this.showAlert();
     });
     
@@ -79,6 +74,7 @@ export class AppComponent {
        // before we determine the connection type. Might need to wait.
       // prior to doing any api requests as well.
       setTimeout(() => {
+        this.dismissAlert(); 
         if (this.network.type === 'wifi') {
           console.log('we got a wifi connection, woohoo!');
         }
@@ -107,24 +103,10 @@ export class AppComponent {
     });
     fcmSubscription.unsubscribe();
     fcmTokenSubscription.unsubscribe();
-    
-
-    // this.firebaseMessaging.subscribe('all');
-    // const fireSub = this.firebaseMessaging.onMessage().subscribe((data) => {
-    //   console.log(data);
-    // });
-    //this.customfirebase.getToken().then(token => console.log(token)).catch(err=> console.log(err));
-    
-    // let notificationSubscription = this.customfirebase.onNotificationOpen().subscribe(data=>{
-    //   console.log(data);
-    //   console.log(data.name)
-    // }, err=> console.log(err));
-    //fireSub.unsubscribe();
-    //notificationSubscription.unsubscribe();
   }
 
   async showAlert() {
-    const alert = await this.alertCtrl.create({
+    this.alertBox = await this.alertCtrl.create({
         header: 'Ooops!',
         message: `You aren't connected to the internet`,
         buttons: [
@@ -134,9 +116,17 @@ export class AppComponent {
                 navigator['app'].exitApp();
             }
           }
-        ]
+        ],
+        cssClass: 'network-error-alert',
+        backdropDismiss: false
       });
-    alert.present();
+    this.alertBox.present();
+  }
+
+  dismissAlert() {
+    if(this.alertBox) {
+      this.alertBox.dismiss();
+    }
   }
 
   backButtonStatus() {

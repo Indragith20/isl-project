@@ -29,8 +29,8 @@ export class KeyEventsComponent implements OnInit {
                 playerName: timeline[timelineData].eventName === 'Goal' ? timeline[timelineData].playerDetails.playerName : null
               };
               this.matchTimeline.push(modifiedTimeline);
-              this.matchTimeline.reverse();
             });
+            this.matchTimeline.reverse();
           }
         })
       }

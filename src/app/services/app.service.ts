@@ -20,30 +20,30 @@ export class AppService {
                 resolve(this.teams);
             } else {
                 this.db.list('teams/teamDetails').valueChanges().subscribe((data) => {
-                        if (data) {
-                            this.teams = data;
-                            resolve(this.teams)
-                        } else {
-                            reject('Error')
-                        }
+                    if (data) {
+                        this.teams = data;
+                        resolve(this.teams)
+                    } else {
+                        reject('Error')
+                    }
                 })
             }
         });
     }
 
     getTeamDetailsById(team) {
-        this.selectedTeam = team; 
-        return this.db.list('teamDetailsById/'+team.teamId).valueChanges();
+        this.selectedTeam = team;
+        return this.db.list('teamDetailsById/' + team.teamId).valueChanges();
     }
 
     getNews() {
         this.newsListLoadedCount = 0;
         return new Promise((resolve, reject) => {
             this.loader.present().then((loading) => {
-                this.loader.loadersList.push(loading);
+
                 this.db.database.ref('news/news').orderByKey().limitToLast(this.newsListItems).on('value', (snapshot) => {
                     loading.dismiss();
-                    if(snapshot) {
+                    if (snapshot) {
                         this.newsListLoadedCount = this.newsListLoadedCount + 2;
                         resolve(snapshot.val());
                     } else {
@@ -57,7 +57,7 @@ export class AppService {
     getNextNews() {
         return new Promise((resolve, reject) => {
             this.db.database.ref('news/news').orderByKey().endAt(String(this.newsListLoadedCount)).limitToFirst(this.newsListItems).on('value', (snapshot) => {
-                if(snapshot) {
+                if (snapshot) {
                     this.newsListLoadedCount = this.newsListLoadedCount + 2;
                     resolve(snapshot.val());
                 } else {
@@ -71,38 +71,38 @@ export class AppService {
     getMatches(dateString: string) {
         console.log(dateString);
         return new Promise((resolve, reject) => {
-            if(this.matchesList.length > 0) {
+            if (this.matchesList.length > 0) {
                 resolve(this.matchesList);
             } else {
                 this.loader.present().then((loading) => {
-                    this.loader.loadersList.push(loading);
+
                     this.db.database.ref('matches/matches').orderByChild('start_date')
-                    .on('value', (snapshot) => {
-                        if(snapshot) {
-                            let resolveArray = [];
-                            const value = snapshot.val();
-                            if(value === null) {
-                                resolveArray = null;
-                            }
-                            else if(value !== null && value.length) {
-                                resolveArray = [...value];
+                        .on('value', (snapshot) => {
+                            if (snapshot) {
+                                let resolveArray = [];
+                                const value = snapshot.val();
+                                if (value === null) {
+                                    resolveArray = null;
+                                }
+                                else if (value !== null && value.length) {
+                                    resolveArray = [...value];
+                                } else {
+                                    Object.keys(value).map((key) => {
+                                        resolveArray.push(value[key]);
+                                    });
+                                }
+                                loading.dismiss();
+                                this.matchesList = resolveArray;
+                                resolve(resolveArray);
                             } else {
-                                Object.keys(value).map((key) => {
-                                    resolveArray.push(value[key]);
-                                });
+                                loading.dismiss();
+                                console.log('err');
+                                reject('err');
                             }
-                            loading.dismiss();
-                            this.matchesList = resolveArray;
-                            resolve(resolveArray);
-                        } else {
-                            loading.dismiss();
-                            console.log('err');
-                            reject('err');
-                        }
-                    });
+                        });
                 });
             }
-            
+
         });
     }
 
@@ -113,44 +113,44 @@ export class AppService {
     getlocalTeamId(teamId) {
         let localTeamId = '';
         let localTeamDetails = {};
-        switch(teamId) {
-            case '499': 
+        switch (teamId) {
+            case '499':
                 localTeamId = '1';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '656': 
+            case '656':
                 localTeamId = '2';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '505': 
+            case '505':
                 localTeamId = '3';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '500': 
+            case '500':
                 localTeamId = '4';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '496': 
+            case '496':
                 localTeamId = '5';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '501': 
+            case '501':
                 localTeamId = '6';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '1159': 
+            case '1159':
                 localTeamId = '7';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '498': 
+            case '498':
                 localTeamId = '8';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '506': 
+            case '506':
                 localTeamId = '9';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
-            case '504': 
+            case '504':
                 localTeamId = '10';
                 localTeamDetails = this.getTeamBasicDetailsById(localTeamId);
                 break;
@@ -164,22 +164,22 @@ export class AppService {
     }
 
     setSelectedMatch(matchData) {
-        this.selectedMatch = {...matchData};
+        this.selectedMatch = { ...matchData };
     }
 
     getDetailedStats(teamOne, teamTwo) {
         console.log(teamOne);
         return new Promise((resolve, reject) => {
-            if(!this.entireStatsData) {
+            if (!this.entireStatsData) {
                 this.loader.present().then((loading) => {
-                    this.loader.loadersList.push(loading);
+
                     console.log(loading);
                     this.db.database.ref('stats/stats').on('value', (snapshot) => {
                         console.log(snapshot.val());
                         let returnStats = {};
                         this.entireStatsData = snapshot.val();
-                        if(this.entireStatsData) {
-                            returnStats = this.entireStatsData.find(team => 
+                        if (this.entireStatsData) {
+                            returnStats = this.entireStatsData.find(team =>
                                 (team.teamOneId === teamOne && team.teamTwoId === teamTwo) ||
                                 (team.teamOneId === teamTwo && team.teamTwoId === teamOne));
                             loading.dismiss();
@@ -188,12 +188,12 @@ export class AppService {
                             loading.dismiss();
                             reject('err');
                         }
-                        
+
                     });
                 })
             } else {
                 let returnStats = {};
-                returnStats = this.entireStatsData.find(team => 
+                returnStats = this.entireStatsData.find(team =>
                     (team.teamOneId === teamOne && team.teamTwoId === teamTwo) ||
                     (team.teamOneId === teamTwo && team.teamTwoId === teamOne));
                 resolve(returnStats);

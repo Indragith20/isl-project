@@ -12,7 +12,7 @@ export class LoaderService {
     this.loadingData = await this.loadingController.create({
         message: 'Loading',
       });
-     await this.loadingData.present();
-     return await this.loadingData;
+    await this.loadingData.present();
+    return await this.loadingData;
   }
 }
