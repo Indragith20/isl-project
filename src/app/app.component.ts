@@ -9,6 +9,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { Location } from '@angular/common';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
+import { LoaderService } from './services/loader.service';
 //import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 
 @Component({
@@ -34,7 +35,8 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private _location: Location,
     private fcm: FCM,
-    private headerColor: HeaderColor
+    private headerColor: HeaderColor,
+    private loaderService: LoaderService
   //  private firebaseMessaging: FirebaseMessaging
   ) {
     this.initializeApp();
@@ -60,13 +62,16 @@ export class AppComponent {
 
   getNetworkInformation() {
     console.log('heelllo');
-    /* let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected :-(');
+      this.loaderService.loadersList.map((loader) => {
+        loader.dismiss();
+      });
       this.showAlert();
     });
     
     // stop disconnect watch
-    disconnectSubscription.unsubscribe();
+    
 
     let connectSubscription = this.network.onConnect().subscribe(() => {
       console.log('network connected!');
@@ -81,7 +86,8 @@ export class AppComponent {
     });
     
     // stop connect watch
-    connectSubscription.unsubscribe(); */
+    connectSubscription.unsubscribe();
+    disconnectSubscription.unsubscribe();
   }
 
   getNotifications() {
