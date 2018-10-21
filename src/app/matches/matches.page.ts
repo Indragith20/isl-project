@@ -69,7 +69,7 @@ export class MatchesPage implements OnInit {
         console.log(matchData);
         this.showWarningCard = false;
          matchData.filter((match) => {
-          if(match) {
+          if(match.start_date === searchDateString) {
             const matchStartDate = new Date(match.start_date);
             const modifiedMatchDetails = {
               ...match,
@@ -85,6 +85,9 @@ export class MatchesPage implements OnInit {
           }
         });
         console.log(this.matchDetailsArray);
+        if(this.matchDetailsArray.length === 0) {
+          this.showWarningCard = true;
+        }
       }
     });
   }

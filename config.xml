@@ -91,5 +91,5 @@
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-support-google-services" spec="^1.2.1" />
     <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.2.5" />
-    <engine name="android" spec="~7.0.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>

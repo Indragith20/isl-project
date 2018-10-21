@@ -5,6 +5,7 @@ import { LoadingController } from '@ionic/angular';
 export class LoaderService {
   loadingData: any;
   loader: any;
+  loadersList: any[] = [];
   constructor(public loadingController: LoadingController) {}
 
   async present() {

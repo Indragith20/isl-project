@@ -60,7 +60,7 @@ export class AppComponent {
 
   getNetworkInformation() {
     console.log('heelllo');
-    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+    /* let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected :-(');
       this.showAlert();
     });
@@ -81,7 +81,7 @@ export class AppComponent {
     });
     
     // stop connect watch
-    connectSubscription.unsubscribe();
+    connectSubscription.unsubscribe(); */
   }
 
   getNotifications() {
@@ -89,16 +89,19 @@ export class AppComponent {
     this.fcm.getToken().then((token) => {
       console.log(token);
     });
-    this.fcm.onNotification().subscribe(data=>{
+    let fcmSubscription = this.fcm.onNotification().subscribe(data=>{
       if(data.wasTapped){
         console.log("Received in background");
       } else {
         console.log("Received in foreground");
       };
     })
-    this.fcm.onTokenRefresh().subscribe(token=>{
+    let fcmTokenSubscription = this.fcm.onTokenRefresh().subscribe(token=>{
       console.log(token);
     });
+    fcmSubscription.unsubscribe();
+    fcmTokenSubscription.unsubscribe();
+    
 
     // this.firebaseMessaging.subscribe('all');
     // const fireSub = this.firebaseMessaging.onMessage().subscribe((data) => {
