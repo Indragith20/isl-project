@@ -3,14 +3,14 @@
       <ion-label>Starting 11</ion-label>
   </ion-list-header>
   <ion-item *ngFor="let player of startList">
-      <ion-badge slot="start">{{player.jerseyNumber}}</ion-badge>
-      <ion-label>{{player.playerName}}</ion-label>
+    <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+    <ion-label>{{player.full_name}}</ion-label>
     </ion-item>
   <ion-list-header mode="md" color="light">
       <ion-label>Substitutes</ion-label>
   </ion-list-header>
   <ion-item *ngFor="let player of subsList">
-      <ion-badge slot="start">{{player.jerseyNumber}}</ion-badge>
-      <ion-label>{{player.playerName}}</ion-label>
+      <ion-badge slot="start">{{player.jersey_number}}</ion-badge>
+      <ion-label>{{player.full_name}}</ion-label>
     </ion-item>
 </ion-list>
